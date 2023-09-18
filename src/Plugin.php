@@ -4,6 +4,7 @@ namespace diginov\sentrylogger;
 
 use diginov\sentrylogger\log\SentryTarget;
 use diginov\sentrylogger\models\SettingsModel;
+use diginov\sentrylogger\integrations\SentryTracer;
 
 use Craft;
 use craft\base\Model;
@@ -69,6 +70,11 @@ class Plugin extends \craft\base\Plugin
                 $dispatcher->targets['sentry'] = Craft::createObject($target);
             }
         }
+
+        // Defer most setup tasks until Craft is fully initialized
+        Craft::$app->onInit(function () {
+            SentryTracer::getInstance()->setup();
+        });
     }
 
     // Protected Methods
