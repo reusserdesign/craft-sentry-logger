@@ -36,6 +36,11 @@ class SentryTarget extends \yii\log\Target
     /**
      * @var string|null
      */
+    public ?string $tracesSampleRate = null;
+
+    /**
+     * @var string|null
+     */
     public ?string $release = null;
 
     /**
@@ -185,6 +190,7 @@ class SentryTarget extends \yii\log\Target
             'dsn'                  => $this->dsn ?: null,
             'release'              => $this->release ?: null,
             'environment'          => $this->environment ?: (App::env('CRAFT_ENVIRONMENT') ?: null),
+            'traces_sample_rate'   => floatval($this->tracesSampleRate ?: 0),
             'context_lines'        => 10,
             'send_default_pii'     => !$this->anonymous,
             'default_integrations' => true,
@@ -237,6 +243,7 @@ class SentryTarget extends \yii\log\Target
         }
 
         unset($this->options['dsn']);
+        unset($this->options['traces_sample_rate']);
         unset($this->options['release']);
         unset($this->options['environment']);
         unset($this->options['send_default_pii']);

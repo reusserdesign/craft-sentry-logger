@@ -30,6 +30,11 @@ class SettingsModel extends \craft\base\Model
     /**
      * @var string|null
      */
+    public ?string $tracesSampleRate = null;
+
+    /**
+     * @var string|null
+     */
     public ?string $release = null;
 
     /**
@@ -72,7 +77,7 @@ class SettingsModel extends \craft\base\Model
     {
         return [
             [
-                ['dsn', 'release', 'environment'],
+                ['dsn', 'release', 'environment', 'tracesSampleRate'],
                 'trim',
             ],[
                 ['anonymous', 'enabled'],
@@ -121,6 +126,23 @@ class SettingsModel extends \craft\base\Model
                     } catch (\Throwable $e) {
                         $this->addError($attribute, Craft::t('yii', '{attribute} is invalid.', [
                             'attribute' => Craft::t('sentry-logger', 'Client Key (DSN)'),
+                        ]));
+                    }
+                }
+            ],[
+                'tracesSampleRate',
+                function($attribute, $params, $validator) {
+                    try {
+                        $value = floatval(App::parseEnv($this->$attribute));
+
+                        if ($value < 0 || $value > 1) {
+                            $this->addError($attribute, Craft::t('yii', '{attribute} must be a number between 0.0 and 1.0.', [
+                                'attribute' => Craft::t('sentry-logger', 'Traces Sample Rate'),
+                            ]));
+                        }
+                    } catch (\Throwable $e) {
+                        $this->addError($attribute, Craft::t('yii', '{attribute} is invalid.', [
+                            'attribute' => Craft::t('sentry-logger', 'Traces Sample Rate'),
                         ]));
                     }
                 }

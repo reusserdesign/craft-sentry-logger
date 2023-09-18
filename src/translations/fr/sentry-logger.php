@@ -28,6 +28,7 @@ return [
     "This is an error test" => "Ceci est un test d'erreur",
     "This is being overridden by the **`{setting}`** parameter in your **`{file}`** config file." => "Ceci est remplacé par le paramètre **`{setting}`** de votre fichier de configuration **`{file}`**.",
     "To send logs to Sentry you need to add your Client Key (DSN) which can be found in your [project settings](https://sentry.io/settings/)." => "Pour envoyer des journaux à Sentry, vous devez ajouter votre Clé Client (DSN) qui se trouve dans les [préférences de votre projet](https://sentry.io/settings/).",
+    "Traces Sample Rate" => "Taux d'échantillonnage de traçage",
     "User privacy settings" => "Confidentialité de l'utilisateur",
     "Username" => "Nom d'utilisateur",
     "Warning" => "Avertissement",

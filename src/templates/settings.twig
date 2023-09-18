@@ -75,6 +75,18 @@
 }) }}
 
 {{ forms.autosuggestField({
+    label: "Traces Sample Rate" |t(plugin.handle),
+    instructions: "" |t(plugin.handle),
+    id: 'tracesSampleRate',
+    name: 'tracesSampleRate',
+    value: settings.tracesSampleRate,
+    suggestEnvVars: true,
+    required: true,
+    errors: settings.getErrors('tracesSampleRate'),
+    warning: 'tracesSampleRate' in overrides |keys ? configWarning(plugin, 'tracesSampleRate'),
+}) }}
+
+{{ forms.autosuggestField({
     label: "Sentry Release" |t(plugin.handle),
     instructions: "The version of the application that is deployed to your environment. Can be left blank to not use this feature." |t(plugin.handle),
     id: 'release',
